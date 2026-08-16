@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet Booth — Booth for Mayor of Elmira</title>
+<meta name="description" content="Meet Booth, Republican candidate for Mayor of Elmira, New York. Background, family, and why he's running in the November 2027 election.">
+<meta property="og:title" content="Meet Booth — Booth for Mayor of Elmira">
+<meta property="og:description" content="Meet Booth, Republican candidate for Mayor of Elmira, New York. Background, family, and why he's running in the November 2027 election.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/booth-logo-red.jpg">
+<link rel="icon" href="assets/booth-logo-red.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Public+Sans:ital,wght@0,400;0,600;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   BOOTH FOR MAYOR — design tokens
+   Palette: signal red / ink navy / paper white / cool wash / amber
+   Type:    Archivo Black (display) · Public Sans (body) · Space Mono (utility)
+   ============================================================ */
+:root{
+  --red:#C73333;
+  --red-dark:#9E2222;
+  --navy:#1A1A1A;
+  --navy-soft:#2E2E2E;
+  --paper:#FFFFFF;
+  --wash:#F4F1EE;
+  --amber:#F2B705; /* used sparingly on dark panels only */
+  --rule:rgba(26,26,26,.16);
+  --muted:#5C5C5C;
+
+  --shadow-hard:6px 6px 0 var(--navy);
+  --shadow-hard-red:6px 6px 0 var(--red);
+
+  --maxw:1120px;
+  --pad:clamp(20px,5vw,48px);
+
+  --display:"Archivo Black",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--navy);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--red-dark)}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+
+/* --- utility type --- */
+.eyebrow::before{content:"★ ";color:var(--red);letter-spacing:0}
+.eyebrow.on-navy::before{color:#fff}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--red);
+  margin:0 0 .6rem;
+  font-weight:700;
+}
+.eyebrow.on-navy{color:var(--amber)}
+
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.95;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(1.9rem,4.4vw,3rem);text-transform:uppercase}
+h3{font-size:1.12rem;line-height:1.2;text-transform:uppercase}
+
+.lede{font-size:clamp(1.05rem,2vw,1.25rem);max-width:56ch;color:var(--muted)}
+
+/* --- signature: speed stripes --- */
+.stripes{
+  height:12px;
+  background:linear-gradient(90deg,var(--red) 0 50%,var(--navy) 50% 100%);
+}
+.stripes--thin{height:6px}
+.rule-stripes{
+  height:8px;width:96px;margin-bottom:1.4rem;
+  background:linear-gradient(90deg,var(--red) 0 62%,var(--navy) 62% 100%);
+}
+
+/* --- skip link --- */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--amber);color:var(--navy);padding:12px 18px;font-weight:800;
+}
+.skip:focus{left:0}
+
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+/* ============ DISCLAIMER BAR (NY Election Law §14-106) ============ */
+.disclaimer-top{
+  background:var(--navy);color:#fff;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;text-align:center;padding:7px 12px;
+}
+
+/* ================= HEADER ================= */
+header.site{
+  position:sticky;top:0;z-index:100;
+  background:var(--paper);
+  border-bottom:3px solid var(--navy);
+}
+.bar{display:flex;align-items:center;gap:24px;padding-block:14px}
+
+/* logo lockup — miniature of the yard sign */
+.lockup{
+  display:grid;grid-template-columns:auto;justify-items:center;gap:0;
+  text-decoration:none;color:inherit;flex:0 0 auto;
+  background:var(--red);padding:7px 14px 8px;
+}
+.lockup-stars{
+  font-size:.5rem;letter-spacing:.28em;color:#fff;line-height:1;
+  margin-bottom:3px;text-indent:.28em;
+}
+.lockup-name{
+  font-family:var(--display);font-size:1.35rem;line-height:.85;color:#fff;
+  letter-spacing:.01em;text-transform:uppercase;
+}
+.lockup-office{
+  font-family:var(--display);font-size:.58rem;line-height:1;color:#fff;
+  text-transform:uppercase;letter-spacing:.06em;
+  border-top:2px solid #fff;border-bottom:2px solid #fff;
+  padding:2px 0 3px;margin-top:4px;width:100%;text-align:center;
+}
+nav.main{margin-left:auto;display:flex;gap:26px;align-items:center}
+nav.main a{
+  font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--navy);text-decoration:none;padding:4px 0;
+  border-bottom:2px solid transparent;
+}
+nav.main a:hover{border-bottom-color:var(--red)}
+
+.btn{
+  display:inline-block;border:3px solid var(--navy);background:var(--red);color:#fff;
+  font-family:var(--display);font-size:.9rem;text-transform:uppercase;letter-spacing:.03em;
+  padding:13px 22px;text-decoration:none;cursor:pointer;
+  box-shadow:var(--shadow-hard);transition:transform .12s ease,box-shadow .12s ease;
+  line-height:1;text-align:center;
+}
+.btn:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--navy)}
+.btn:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--navy)}
+.btn--ghost{background:var(--paper);color:var(--navy)}
+.btn--navy{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:var(--shadow-hard-red)}
+.btn--navy:hover{box-shadow:3px 3px 0 var(--red)}
+.btn--sm{padding:10px 16px;font-size:.78rem;box-shadow:4px 4px 0 var(--navy)}
+.btn--wide{width:100%}
+.btn[disabled],.btn[aria-disabled="true"]{
+  background:var(--wash);color:var(--muted);border-color:var(--rule);
+  box-shadow:none;cursor:not-allowed;transform:none;
+}
+
+.menu-toggle{display:none;margin-left:auto;background:none;border:3px solid var(--navy);padding:8px 12px;font-family:var(--mono);font-weight:700;cursor:pointer}
+
+@media (max-width:900px){
+  nav.main{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    background:var(--paper);border-bottom:3px solid var(--navy);
+    flex-direction:column;align-items:stretch;gap:0;padding:8px var(--pad) 20px;
+  }
+  nav.main.open{display:flex}
+  nav.main a{padding:14px 0;border-bottom:1px solid var(--rule)}
+  nav.main .btn{margin-top:14px}
+  .menu-toggle{display:block}
+  .bar .btn--header{display:none}
+}
+
+/* ================= HERO ================= */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    repeating-linear-gradient(-45deg,rgba(14,31,61,.035) 0 2px,transparent 2px 11px),
+    var(--paper);
+  padding-block:clamp(46px,8vw,86px) clamp(40px,7vw,70px);
+}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,60px);align-items:center}
+@media (max-width:880px){.hero-grid{grid-template-columns:1fr}}
+
+/* ===== signmark: the yard sign as live type =====
+   Mirrors the printed lockup exactly — five stars, heavy caps,
+   double-ruled office bar. Scales from phone to desktop. */
+.signmark{
+  background:var(--red);color:#fff;
+  padding:clamp(22px,4vw,34px) clamp(20px,4vw,40px) clamp(24px,4vw,36px);
+  border:4px solid var(--navy);box-shadow:10px 10px 0 var(--navy);
+  text-align:center;max-width:600px;
+}
+.signmark-stars{
+  font-size:clamp(1rem,2.6vw,1.5rem);letter-spacing:.34em;line-height:1;
+  text-indent:.34em;margin-bottom:clamp(10px,1.6vw,16px);
+}
+.signmark-name{
+  font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(3.4rem,11vw,6.6rem);line-height:.8;letter-spacing:.005em;
+}
+.signmark-office{
+  font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(1.15rem,3.6vw,2.15rem);line-height:1;letter-spacing:.045em;
+  border-top:4px solid #fff;border-bottom:4px solid #fff;
+  padding:clamp(6px,1vw,9px) 0 clamp(7px,1.1vw,11px);
+  margin-top:clamp(12px,2vw,18px);
+}
+.signmark-sub{
+  font-family:var(--mono);font-weight:700;
+  font-size:clamp(.66rem,1.5vw,.82rem);letter-spacing:.24em;text-transform:uppercase;
+  color:var(--navy);margin:1.2rem 0 1.5rem;max-width:600px;text-align:center;
+}
+.hero h1{position:absolute;left:-9999px}
+
+.promise{font-size:clamp(1.15rem,2.3vw,1.45rem);font-weight:600;max-width:34ch;line-height:1.35;color:var(--navy);margin:0 0 1.4rem}
+
+/* primary CTA: email capture (single dominant action, early-cycle) */
+.signup-card{
+  border:3px solid var(--navy);background:var(--paper);box-shadow:var(--shadow-hard-red);
+  padding:26px 24px 24px;
+}
+.signup-card h2{font-size:1.35rem;margin-bottom:.5rem}
+.signup-card p{font-size:.93rem;color:var(--muted);margin:0 0 1.1rem}
+.field{display:block;margin-bottom:12px}
+.field span{
+  display:block;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:700;margin-bottom:5px;color:var(--navy);
+}
+.field span .req{color:var(--red)}
+input,select,textarea{
+  width:100%;font-family:var(--body);font-size:1rem;color:var(--navy);
+  padding:11px 12px;border:2px solid var(--navy);background:var(--paper);border-radius:0;
+}
+textarea{min-height:88px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#8A97AC}
+.fineprint{font-size:.76rem;color:var(--muted);margin:.9rem 0 0;line-height:1.45}
+
+/* expectation-setting list shown before an off-site form handoff */
+.ticks{list-style:none;margin:0 0 1.3rem;padding:0}
+.ticks li{position:relative;padding-left:26px;font-size:.92rem;margin-bottom:7px;color:var(--navy)}
+.ticks li::before{
+  content:"";position:absolute;left:0;top:.42em;width:12px;height:7px;
+  border-left:3px solid var(--red);border-bottom:3px solid var(--red);
+  transform:rotate(-45deg);
+}
+.action .ticks li{color:#DCE4F0}
+.action .ticks li::before{border-color:var(--amber)}
+
+/* ================= COUNTDOWN STRIP ================= */
+.ticker{background:var(--navy);color:#fff;padding:22px 0}
+.ticker-inner{display:flex;flex-wrap:wrap;gap:22px 34px;align-items:center;justify-content:space-between}
+.count{display:flex;gap:10px;align-items:flex-end}
+.count .unit{text-align:center}
+.count .num{
+  font-family:var(--display);font-size:clamp(1.7rem,4.6vw,2.6rem);line-height:1;
+  background:var(--red);color:#fff;padding:8px 10px;display:block;min-width:2.6ch;
+  border-top:3px solid #fff;border-bottom:3px solid #fff;
+}
+.count .lbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;display:block;margin-top:6px}
+.ticker .to{font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;max-width:22ch;line-height:1.5}
+.ticker .to strong{color:#fff;display:block;font-size:.95rem}
+
+/* ================= SECTIONS ================= */
+section{padding-block:clamp(52px,8vw,88px)}
+section.wash{background:var(--wash)}
+section.ink{background:var(--navy);color:#fff}
+section.ink h2,section.ink h3{color:#fff}
+section.ink .lede{color:#C6D2E6}
+
+.sec-head{max-width:60ch;margin-bottom:clamp(28px,4vw,44px)}
+
+/* issues */
+.issues{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.issue{
+  background:var(--paper);border:3px solid var(--navy);padding:24px 22px 22px;
+  position:relative;box-shadow:var(--shadow-hard);
+}
+.issue .tag{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--navy);color:#fff;padding:4px 8px;display:inline-block;margin-bottom:14px;font-weight:700;
+}
+.issue h3{margin-bottom:.6rem}
+.issue p{font-size:.95rem;color:var(--muted);margin:0}
+.issue::after{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:var(--red)}
+.issue:nth-child(2)::after{background:var(--navy)}
+.issue:nth-child(3)::after{background:var(--red)}
+.issue:nth-child(4)::after{background:var(--navy)}
+
+/* bio */
+.bio{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,56px);align-items:start}
+@media (max-width:820px){.bio{grid-template-columns:1fr}}
+.portrait{
+  border:3px solid var(--navy);box-shadow:var(--shadow-hard-red);background:var(--wash);
+  aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);text-align:center;padding:20px;
+}
+.bio p{margin:0 0 1rem}
+.pullquote{
+  border-top:4px solid var(--red);border-bottom:4px solid var(--red);
+  padding:16px 0;margin:1.8rem 0 0;text-align:center;
+  font-family:var(--display);font-size:1.15rem;line-height:1.25;text-transform:uppercase;
+}
+
+/* ============ ACTION GRID ============ */
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.action{
+  border:3px solid #fff;padding:26px 22px;display:flex;flex-direction:column;gap:12px;
+  background:var(--navy-soft);
+}
+.action h3{font-size:1.3rem}
+.action p{font-size:.93rem;color:#C6D2E6;margin:0;flex:1}
+.action .btn{margin-top:6px}
+.action.soon{opacity:.92;border-style:dashed}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px}
+.amounts a{
+  font-family:var(--display);font-size:.95rem;text-align:center;text-decoration:none;
+  border:3px solid #fff;background:transparent;color:#fff;padding:11px 4px;line-height:1;
+}
+.amounts a:hover{background:var(--red);border-color:var(--red)}
+.badge-soon{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+  border:2px solid var(--amber);color:var(--amber);padding:3px 7px;align-self:flex-start;font-weight:700;
+}
+
+/* ============ FOOTER ============ */
+footer.site{background:var(--navy);color:#C6D2E6;padding-block:44px 0;font-size:.9rem}
+.foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px;padding-bottom:34px}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr}}
+footer.site h4{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;margin:0 0 12px;font-weight:700;
+}
+footer.site ul{list-style:none;margin:0;padding:0}
+footer.site li{margin-bottom:8px}
+footer.site a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+footer.site a:hover{border-bottom-color:var(--amber);color:var(--amber)}
+.disclaimer-foot{
+  border-top:1px solid rgba(255,255,255,.2);padding:20px 0;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#fff;
+}
+.disclaimer-foot .note{display:block;text-transform:none;letter-spacing:0;color:#8FA3C2;font-family:var(--body);margin-top:8px;font-size:.78rem}
+
+
+
+
+/* ============================================================
+   MULTI-PAGE ADDITIONS
+   ============================================================ */
+
+/* page banner used on interior pages in place of the hero */
+.pagehead{
+  background:var(--navy);color:#fff;
+  padding-block:clamp(38px,6vw,62px);
+  border-bottom:6px solid var(--red);
+}
+.pagehead h1{
+  position:static;left:auto;
+  font-size:clamp(2.3rem,6vw,3.8rem);text-transform:uppercase;color:#fff;
+}
+.pagehead .lede{color:#D9D9D9;margin-top:1rem}
+.pagehead .eyebrow{color:#fff}
+.pagehead .eyebrow::before{color:#fff}
+
+/* active nav state */
+nav.main a[aria-current="page"]{border-bottom-color:var(--red);color:var(--red)}
+
+/* long-form prose column */
+.prose{max-width:68ch}
+.prose p{margin:0 0 1.15rem}
+.prose h3{margin:2.2rem 0 .7rem;font-size:1.25rem}
+.prose ul{padding-left:1.1rem;margin:0 0 1.15rem}
+.prose li{margin-bottom:.5rem}
+
+/* issue detail blocks */
+.stand{border-top:4px solid var(--navy);padding-top:26px;margin-bottom:44px}
+.stand:last-child{margin-bottom:0}
+.stand-num{
+  font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--red);
+  display:block;margin-bottom:.4rem;
+}
+.stand h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin-bottom:.9rem}
+.stand .claim{
+  font-family:var(--display);text-transform:uppercase;font-size:1.05rem;line-height:1.3;
+  border-top:3px solid var(--red);border-bottom:3px solid var(--red);
+  padding:13px 0;margin:0 0 1.2rem;
+}
+.stand .prose{max-width:66ch}
+.stand .willdo{background:var(--wash);border-left:8px solid var(--red);padding:18px 20px;margin-top:1.3rem}
+.stand .willdo h4{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  margin:0 0 .6rem;color:var(--red);font-weight:700;
+}
+.stand .willdo ul{margin:0;padding-left:1.1rem;font-size:.95rem}
+.stand .willdo li{margin-bottom:.45rem}
+
+/* two-column layout with sticky sidebar */
+.split{display:grid;grid-template-columns:1fr 300px;gap:clamp(30px,5vw,58px);align-items:start}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.sidebar{position:sticky;top:120px}
+@media (max-width:900px){.sidebar{position:static}}
+.sidebar-card{border:3px solid var(--navy);background:var(--paper);padding:22px 20px;box-shadow:var(--shadow-hard-red)}
+.sidebar-card h3{font-size:1.1rem;margin-bottom:.6rem}
+.sidebar-card p{font-size:.9rem;color:var(--muted);margin:0 0 1rem}
+.jump{list-style:none;margin:0 0 22px;padding:0;border:3px solid var(--navy)}
+.jump li{border-bottom:1px solid var(--rule)}
+.jump li:last-child{border-bottom:none}
+.jump a{
+  display:block;padding:11px 15px;text-decoration:none;color:var(--navy);
+  font-family:var(--mono);font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
+.jump a:hover{background:var(--red);color:#fff}
+
+/* fact rows for the bio page */
+.facts{border:3px solid var(--navy);margin:1.8rem 0 0}
+.facts div{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid var(--rule);font-size:.93rem}
+.facts div:last-child{border-bottom:none}
+.facts dt{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--red);font-weight:700;flex:0 0 110px;margin:0;
+}
+.facts dd{margin:0}
+
+/* closing call-to-action band */
+.cta-band{background:var(--red);color:#fff;padding-block:clamp(40px,6vw,62px);text-align:center}
+.cta-band h2{color:#fff;font-size:clamp(1.7rem,4vw,2.6rem)}
+.cta-band p{max-width:52ch;margin:1rem auto 1.7rem;color:#FFE4E4}
+.cta-band .btn{border-color:#fff;background:var(--paper);color:var(--navy);box-shadow:6px 6px 0 var(--navy)}
+.cta-band .btn:hover{box-shadow:3px 3px 0 var(--navy)}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* FAQ / disclosure */
+details.faq{border:3px solid var(--navy);margin-bottom:12px;background:var(--paper)}
+details.faq summary{
+  cursor:pointer;padding:15px 18px;font-family:var(--display);text-transform:uppercase;
+  font-size:1rem;list-style:none;display:flex;align-items:center;gap:12px;
+}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq summary::before{content:"+";color:var(--red);font-size:1.3rem;line-height:1}
+details.faq[open] summary::before{content:"–"}
+details.faq .body{padding:0 18px 18px;font-size:.95rem;color:var(--muted)}
+details.faq .body p{margin:0 0 .8rem}
+details.faq .body p:last-child{margin:0}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<!-- NY Election Law requires this disclaimer on every page -->
+<div class="disclaimer-top">Paid for by Booth for Mayor</div>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="lockup" href="index.html" aria-label="Booth for Mayor, home">
+      <span class="lockup-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="lockup-name">Booth</span>
+      <span class="lockup-office">For Mayor</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">MENU</button>
+    <nav class="main" id="mainNav">
+      <a href="issues.html">Where I Stand</a>
+      <a href="about.html">Meet Booth</a>
+      <a href="involved.html">Get Involved</a>
+      <a class="btn btn--sm btn--header" data-form="yardsign" href="#">Yard Sign</a>
+    </nav>
+  </div>
+  <div class="stripes stripes--thin"></div>
+</header>
+
+<main id="main">
+<div class="pagehead">
+  <div class="wrap">
+    <p class="eyebrow">Meet Booth</p>
+    <h1>Meet Booth</h1>
+    <p class="lede">Who I am, where I'm from, and why I'm running for Mayor of Elmira.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap bio">
+    <div>
+      <div class="portrait">Add candidate photo here<br>(portrait, 4:5, at least 900&times;1125)</div>
+      <dl class="facts">
+        <div><dt>Home</dt><dd>[Neighborhood or street, Elmira]</dd></div>
+        <div><dt>Family</dt><dd>[Spouse, children]</dd></div>
+        <div><dt>Work</dt><dd>[Current occupation]</dd></div>
+        <div><dt>Years here</dt><dd>[Number, or "lifelong resident"]</dd></div>
+        <div><dt>Party</dt><dd>Republican</dd></div>
+      </dl>
+    </div>
+    <div class="prose">
+      <div class="rule-stripes"></div>
+      <p class="eyebrow">In his own words</p>
+      <h2 style="margin-bottom:1.2rem">I've been reading Elmira's budget line by line</h2>
+
+      <p><strong>[Open with a specific scene, not a summary.]</strong> The strongest candidate biographies start somewhere concrete &mdash; a night at a Council meeting, a conversation on a porch, the moment you decided to run. Voters skim; a specific image holds them longer than a list of qualifications.</p>
+
+      <p>[Second paragraph: where you're from and how long you've been here. If you grew up in Elmira, say which school. If you came later, say what brought you and what made you stay. Local roots are the single most persuasive credential in a city race.]</p>
+
+      <h3>What I do</h3>
+      <p>[Your work, in plain terms. Connect it to the job you're seeking if there's an honest connection &mdash; if you manage budgets, run a crew, or deal with regulations, say so. Don't stretch it; a forced connection reads worse than none.]</p>
+
+      <h3>Family and community</h3>
+      <p>[Spouse, children, church, coaching, volunteering, veteran service, clubs. This is what turns a name on a sign into a neighbor. Keep it warm and keep it true.]</p>
+
+      <h3>Why I'm running</h3>
+      <p>[One tight paragraph. Not a list of grievances &mdash; a statement of what you think the city could be and what specifically you intend to do about it. End on something forward-looking.]</p>
+
+      <p class="pullquote">&ldquo;I'll tell you what the number is, even when it isn't the number you wanted.&rdquo;</p>
+
+      <p style="margin-top:1.8rem">Read where I stand on <a href="issues.html">the budget, senior pay, neighborhoods, and tax-exempt service agreements</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wash">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rule-stripes"></div>
+      <p class="eyebrow">Questions people ask</p>
+      <h2>Straight answers</h2>
+      <p class="lede">Replace these with the questions you actually get asked at doors. Answering the hard ones in public is worth more than avoiding them.</p>
+    </div>
+
+    <details class="faq">
+      <summary>What does the Mayor of Elmira actually do?</summary>
+      <div class="body">
+        <p>[This is worth answering carefully and honestly. Elmira operates under a council-manager form of government, which means day-to-day administration runs through a City Manager. Explain what that means for what a mayor can and can't promise &mdash; and then explain where the office does carry real weight: setting the agenda, appointments, the budget vote, and the public voice of the city.]</p>
+        <p>[A candidate who explains the limits of the office honestly is more credible on everything else he says.]</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Have you held office before?</summary>
+      <div class="body">
+        <p>[Answer directly. If this is your first run, say so and then say what you've done instead &mdash; the meetings you've attended, the records you've read, the work you've already put in. First-time candidacy is only a weakness if you're evasive about it.]</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Will you raise taxes?</summary>
+      <div class="body">
+        <p>[Do not dodge this one. Say what you believe, and say what would have to be true for your answer to change. Voters have heard absolute pledges before and discount them; a candidate who explains his reasoning is more believable than one who makes a promise no mayor can unilaterally keep.]</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>How can I reach you?</summary>
+      <div class="body">
+        <p>Email <a href="mailto:info@boothformayor.com">info@boothformayor.com</a>, or stop me on the street. I'd rather hear a complaint in person than read about it later.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Know your neighbors?</h2>
+    <p>A conversation from someone they trust moves more votes than anything this campaign can buy.</p>
+    <div class="cta-row">
+      <a class="btn" data-form="yardsign" href="#">Request a yard sign</a>
+      <a class="btn" data-form="volunteer" href="#">Volunteer</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="stripes" style="margin-bottom:36px"></div>
+  <div class="wrap foot-grid">
+    <div>
+      <h4>Booth for Mayor</h4>
+      <p style="margin:0 0 10px">A budget you can read. A city hall that answers. Neighborhoods worth staying in.</p>
+      <p style="margin:0"><a href="mailto:info@boothformayor.com">info@boothformayor.com</a></p>
+    </div>
+    <div>
+      <h4>The campaign</h4>
+      <ul>
+        <li><a href="issues.html">Where I stand</a></li>
+        <li><a href="about.html">Meet Booth</a></li>
+        <li><a href="involved.html">Get involved</a></li>
+        <li><a href="#" data-facebook>Facebook</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Voter resources</h4>
+      <ul>
+        <li><a href="https://elections.ny.gov" target="_blank" rel="noopener">Check your registration</a></li>
+        <li><a href="tel:16077375475">Chemung County BOE &mdash; (607) 737-5475</a></li>
+        <li><a href="mailto:votechemung@chemungcountyny.gov">votechemung@chemungcountyny.gov</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="disclaimer-foot">
+      Paid for by Booth for Mayor
+      <span class="note">New York Election Law requires a &ldquo;Paid for by&rdquo; disclaimer on the public-facing website of a political committee. Replace this with your registered committee name exactly as filed with the State Board of Elections, and keep it on every page.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   BOOTH FOR MAYOR — shared configuration and behavior
+   Edit CONFIG here once; it applies to every page on the site.
+   ============================================================ */
+const CONFIG = {
+
+  /* --- GOOGLE FORMS ---
+     Paste the "Send > link" URL for each form (the full /viewform URL).
+     Any left blank shows a "not connected yet" note instead of a dead link. */
+  FORMS: {
+    volunteer: "",
+    yardsign:  ""
+  },
+
+  /* Official campaign Facebook Page, e.g. "https://www.facebook.com/BoothForMayor".
+     Leave blank and every Facebook button and link hides itself. */
+  FACEBOOK_URL: "",
+
+  /* --- DONATIONS (Anedot) ---
+     Flip DONATIONS_OPEN to true only after the committee is registered with
+     NYSBOE and the Anedot account is approved and linked to the committee
+     bank account. */
+  DONATIONS_OPEN: false,
+  DONATE_URL: "https://secure.anedot.com/YOUR-ACCOUNT-SLUG/YOUR-PAGE-SLUG",
+  DONATE_AMOUNTS: [25, 50, 100, 250],
+
+  /* Election Day: first Tuesday after the first Monday in November 2027.
+     Confirm with the Chemung County Board of Elections. */
+  ELECTION_DAY: "2027-11-02T06:00:00-05:00",
+  ELECTION_LABEL: "General Election"
+};
+
+/* ---------- mobile nav ---------- */
+(function nav(){
+  const toggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('mainNav');
+  if (!toggle || !menu) return;
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+  }));
+})();
+
+/* ---------- mark the current page in the nav ---------- */
+(function currentPage(){
+  const here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  document.querySelectorAll('nav.main a[href]').forEach(a => {
+    const target = a.getAttribute('href').split('/').pop().split('#')[0].toLowerCase();
+    if (target && target === here) a.setAttribute('aria-current','page');
+  });
+})();
+
+/* ---------- Google Form link-outs ----------
+   Any element with data-form="key" opens CONFIG.FORMS[key] in a new tab.
+   Unconfigured keys are disabled with an explanation rather than a dead link. */
+(function formLinks(){
+  document.querySelectorAll('[data-form]').forEach(el => {
+    const url = CONFIG.FORMS[el.dataset.form];
+    if (url){
+      el.href = url;
+      el.target = '_blank';
+      el.rel = 'noopener';
+    } else {
+      el.setAttribute('aria-disabled','true');
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        const note = el.parentElement.querySelector('.fineprint');
+        if (note){
+          note.textContent = 'This form isn\u2019t connected yet \u2014 add its Google Form link to the CONFIG block in this page.';
+          note.style.color = 'var(--red)';
+        }
+      });
+    }
+  });
+})();
+
+/* ---------- Facebook links ---------- */
+(function facebook(){
+  const els = document.querySelectorAll('[data-facebook]');
+  if (CONFIG.FACEBOOK_URL){
+    els.forEach(el => {
+      el.href = CONFIG.FACEBOOK_URL;
+      el.target = '_blank';
+      el.rel = 'noopener';
+    });
+  } else {
+    els.forEach(el => el.closest('.action, li')?.remove());
+  }
+})();
+
+/* ---------- donations via Anedot ----------
+   Deep-links each preset amount into Anedot with ?amount= preselected
+   and a source tag so you can see which button was clicked. */
+(function donations(){
+  const btn = document.getElementById('donateBtn');
+  if (!btn) return;
+  const card = document.getElementById('donateCard');
+  const amounts = document.getElementById('donateAmounts');
+
+  const url = amt => {
+    const u = new URL(CONFIG.DONATE_URL);
+    if (amt) u.searchParams.set('amount', amt);
+    u.searchParams.set('source', amt ? ('web-' + amt) : 'web-open');
+    return u.toString();
+  };
+
+  const live = CONFIG.DONATIONS_OPEN && CONFIG.DONATE_URL && !CONFIG.DONATE_URL.includes('YOUR-');
+  if (!live){
+    btn.addEventListener('click', e => e.preventDefault());
+    return;
+  }
+
+  card?.classList.remove('soon');
+  card?.querySelector('.badge-soon')?.remove();
+  const blurb = card?.querySelector('p');
+  if (blurb) blurb.textContent =
+    'Every contribution buys signs, literature, and postage. Contributions to a political campaign are not tax deductible.';
+
+  if (amounts){
+    (CONFIG.DONATE_AMOUNTS || []).forEach(amt => {
+      const a = document.createElement('a');
+      a.href = url(amt); a.textContent = '$' + amt;
+      a.target = '_blank'; a.rel = 'noopener';
+      amounts.appendChild(a);
+    });
+    if (amounts.children.length) amounts.hidden = false;
+  }
+
+  btn.href = url();
+  btn.textContent = 'Other amount';
+  btn.removeAttribute('aria-disabled');
+  btn.target = '_blank';
+  btn.rel = 'noopener';
+})();
+
+/* ---------- countdown (home page only) ---------- */
+(function countdown(){
+  const d = document.getElementById('cd-d');
+  if (!d) return;
+  const target = new Date(CONFIG.ELECTION_DAY);
+  const label = document.getElementById('tickerLabel');
+  const dateEl = document.getElementById('tickerDate');
+  if (label) label.textContent = CONFIG.ELECTION_LABEL;
+  if (dateEl) dateEl.textContent =
+    target.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const pad = n => String(n).padStart(2,'0');
+  function tick(){
+    const diff = target - new Date();
+    if (diff <= 0){
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+      if (label) label.textContent = 'Polls are open';
+      return;
+    }
+    const s = Math.floor(diff/1000);
+    d.textContent = Math.floor(s/86400);
+    document.getElementById('cd-h').textContent = pad(Math.floor(s%86400/3600));
+    document.getElementById('cd-m').textContent = pad(Math.floor(s%3600/60));
+    document.getElementById('cd-s').textContent = pad(s%60);
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+</script>
+</body>
+</html>

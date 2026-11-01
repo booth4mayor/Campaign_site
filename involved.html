@@ -8,8 +8,8 @@
 <meta property="og:title" content="Get Involved — Booth for Mayor of Elmira">
 <meta property="og:description" content="Volunteer, request a free yard sign, or follow the Booth for Mayor campaign in Elmira, New York. No experience needed.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/booth-logo-red.jpg">
-<link rel="icon" href="assets/booth-logo-red.jpg">
+<meta property="og:image" content="assets/yard-sign.png">
+<link rel="icon" type="image/png" href="assets/yard-sign-header.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Public+Sans:ital,wght@0,400;0,600;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -117,26 +117,10 @@ header.site{
 }
 .bar{display:flex;align-items:center;gap:24px;padding-block:14px}
 
-/* logo lockup — miniature of the yard sign */
-.lockup{
-  display:grid;grid-template-columns:auto;justify-items:center;gap:0;
-  text-decoration:none;color:inherit;flex:0 0 auto;
-  background:var(--red);padding:7px 14px 8px;
-}
-.lockup-stars{
-  font-size:.5rem;letter-spacing:.28em;color:#fff;line-height:1;
-  margin-bottom:3px;text-indent:.28em;
-}
-.lockup-name{
-  font-family:var(--display);font-size:1.35rem;line-height:.85;color:#fff;
-  letter-spacing:.01em;text-transform:uppercase;
-}
-.lockup-office{
-  font-family:var(--display);font-size:.58rem;line-height:1;color:#fff;
-  text-transform:uppercase;letter-spacing:.06em;
-  border-top:2px solid #fff;border-bottom:2px solid #fff;
-  padding:2px 0 3px;margin-top:4px;width:100%;text-align:center;
-}
+/* header logo — the printed yard sign itself, cropped to its blue frame */
+.brand{display:block;flex:0 0 auto;line-height:0;text-decoration:none}
+.brand img{height:62px;width:auto;display:block}
+@media (max-width:480px){.brand img{height:52px}}
 nav.main{margin-left:auto;display:flex;gap:26px;align-items:center}
 nav.main a{
   font-family:var(--mono);font-size:.78rem;font-weight:700;letter-spacing:.1em;
@@ -144,6 +128,17 @@ nav.main a{
   border-bottom:2px solid transparent;
 }
 nav.main a:hover{border-bottom-color:var(--red)}
+
+/* The header CTA is a button, not a nav link — these overrides are needed
+   because "nav.main a" outranks ".btn" on specificity and was forcing
+   dark text onto the red fill, making it nearly unreadable. */
+nav.main a.btn{
+  font-family:var(--display);font-size:.8rem;letter-spacing:.03em;
+  color:#fff;border:3px solid var(--navy);border-bottom:3px solid var(--navy);
+  padding:11px 18px;
+}
+nav.main a.btn:hover{border-bottom-color:var(--navy);color:#fff}
+nav.main a.btn[aria-current="page"]{color:#fff;border-bottom-color:var(--navy)}
 
 .btn{
   display:inline-block;border:3px solid var(--navy);background:var(--red);color:#fff;
@@ -191,7 +186,7 @@ nav.main a:hover{border-bottom-color:var(--red)}
 @media (max-width:880px){.hero-grid{grid-template-columns:1fr}}
 
 /* ===== signmark: the yard sign as live type =====
-   Mirrors the printed lockup exactly — five stars, heavy caps,
+   Mirrors the printed sign exactly — five stars, heavy caps,
    double-ruled office bar. Scales from phone to desktop. */
 .signmark{
   background:var(--red);color:#fff;
@@ -214,6 +209,9 @@ nav.main a:hover{border-bottom-color:var(--red)}
   padding:clamp(6px,1vw,9px) 0 clamp(7px,1.1vw,11px);
   margin-top:clamp(12px,2vw,18px);
 }
+/* the printed sign itself, dropped in as artwork.
+   The sign carries its own frame, so only the offset shadow is added here. */
+.signimg{width:100%;max-width:600px;height:auto;box-shadow:10px 10px 0 var(--navy)}
 .signmark-sub{
   font-family:var(--mono);font-weight:700;
   font-size:clamp(.66rem,1.5vw,.82rem);letter-spacing:.24em;text-transform:uppercase;
@@ -226,8 +224,13 @@ nav.main a:hover{border-bottom-color:var(--red)}
 /* primary CTA: email capture (single dominant action, early-cycle) */
 .signup-card{
   border:3px solid var(--navy);background:var(--paper);box-shadow:var(--shadow-hard-red);
-  padding:26px 24px 24px;
+  padding:26px 24px 28px;
 }
+/* the button needs room to breathe before the fine print below it */
+.signup-card .btn{margin-top:4px}
+.signup-card .btn + .fineprint{margin-top:1.15rem}
+.sidebar-card .btn + .fineprint{margin-top:1.05rem}
+.action .btn + .fineprint{margin-top:1.05rem}
 .signup-card h2{font-size:1.35rem;margin-bottom:.5rem}
 .signup-card p{font-size:.93rem;color:var(--muted);margin:0 0 1.1rem}
 .field{display:block;margin-bottom:12px}
@@ -242,7 +245,7 @@ input,select,textarea{
 }
 textarea{min-height:88px;resize:vertical}
 input::placeholder,textarea::placeholder{color:#8A97AC}
-.fineprint{font-size:.76rem;color:var(--muted);margin:.9rem 0 0;line-height:1.45}
+.fineprint{font-size:.76rem;color:var(--muted);margin:.9rem 0 0;line-height:1.5}
 
 /* expectation-setting list shown before an off-site form handoff */
 .ticks{list-style:none;margin:0 0 1.3rem;padding:0}
@@ -271,6 +274,8 @@ input::placeholder,textarea::placeholder{color:#8A97AC}
 
 /* ================= SECTIONS ================= */
 section{padding-block:clamp(52px,8vw,88px)}
+/* stop the sticky header from covering a heading we've just jumped to */
+[id]{scroll-margin-top:96px}
 section.wash{background:var(--wash)}
 section.ink{background:var(--navy);color:#fff}
 section.ink h2,section.ink h3{color:#fff}
@@ -320,7 +325,15 @@ section.ink .lede{color:#C6D2E6}
 .action h3{font-size:1.3rem}
 .action p{font-size:.93rem;color:#C6D2E6;margin:0;flex:1}
 .action .btn{margin-top:6px}
+.action .fineprint{color:#9FB0C8;flex:0 0 auto}
 .action.soon{opacity:.92;border-style:dashed}
+/* the lead ask in the grid — red fill so the eye lands on it first */
+.action--lead{background:var(--red);border-color:#fff}
+.action--lead p{color:#FFE0E0}
+.action--lead .ticks li{color:#fff}
+.action--lead .ticks li::before{border-color:#fff}
+.action--lead .fineprint{color:#FFD2D2}
+.action--lead .btn{background:var(--paper);color:var(--navy);border-color:var(--navy)}
 .amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px}
 .amounts a{
   font-family:var(--display);font-size:.95rem;text-align:center;text-decoration:none;
@@ -331,6 +344,65 @@ section.ink .lede{color:#C6D2E6}
   font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
   border:2px solid var(--amber);color:var(--amber);padding:3px 7px;align-self:flex-start;font-weight:700;
 }
+
+/* ============ SOCIAL BAND ============
+   Sits between the action grid and the footer so the follow buttons get a
+   full-width band of their own instead of being one card among many. */
+.social-band{background:var(--red);color:#fff;padding-block:clamp(44px,7vw,72px)}
+.social-band h2{color:#fff}
+.social-band .rule-stripes{background:linear-gradient(90deg,#fff 0 62%,var(--navy) 62% 100%)}
+.social-band .eyebrow{color:#fff}
+.social-band .eyebrow::before{color:#fff}
+.social-lede{font-size:clamp(1.02rem,2vw,1.18rem);max-width:54ch;color:#FFE0E0;margin:.9rem 0 0}
+
+.social-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:18px;margin-top:clamp(26px,4vw,38px);
+}
+.social{
+  display:flex;align-items:center;gap:16px;text-decoration:none;
+  background:var(--paper);color:var(--navy);
+  border:3px solid var(--navy);box-shadow:6px 6px 0 var(--navy);
+  padding:18px 20px;transition:transform .12s ease,box-shadow .12s ease;
+}
+.social:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--navy)}
+.social:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--navy)}
+.social svg{width:34px;height:34px;flex:0 0 auto;fill:var(--red)}
+.social-txt{display:flex;flex-direction:column;line-height:1.15;min-width:0}
+.social-txt strong{
+  font-family:var(--display);font-size:1.15rem;text-transform:uppercase;letter-spacing:.01em;
+}
+.social-txt span{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-top:5px;
+}
+.social-note{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;
+  border:2px dashed #fff;padding:14px 16px;margin-top:clamp(26px,4vw,38px);color:#fff;
+}
+
+/* social row folded into the closing red band on interior pages, so every
+   page ends with the same follow ask without stacking two red bands */
+.cta-social{
+  margin-top:clamp(28px,4vw,40px);
+  border-top:2px solid rgba(255,255,255,.45);
+  padding-top:clamp(22px,3vw,30px);
+}
+.cta-social h3{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;margin:0 0 16px;font-weight:700;
+}
+.cta-social .social-row{margin-top:0;max-width:840px;margin-inline:auto}
+.cta-social .social{text-align:left}
+
+/* compact icon row reused in the footer */
+.foot-social{display:flex;gap:12px;margin-top:16px}
+.foot-social a{
+  display:grid;place-items:center;width:42px;height:42px;
+  border:2px solid rgba(255,255,255,.55);border-bottom:2px solid rgba(255,255,255,.55);
+}
+.foot-social a:hover{background:var(--red);border-color:var(--red)}
+.foot-social svg{width:20px;height:20px;fill:#fff}
 
 /* ============ FOOTER ============ */
 footer.site{background:var(--navy);color:#C6D2E6;padding-block:44px 0;font-size:.9rem}
@@ -420,16 +492,6 @@ nav.main a[aria-current="page"]{border-bottom-color:var(--red);color:var(--red)}
 }
 .jump a:hover{background:var(--red);color:#fff}
 
-/* fact rows for the bio page */
-.facts{border:3px solid var(--navy);margin:1.8rem 0 0}
-.facts div{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid var(--rule);font-size:.93rem}
-.facts div:last-child{border-bottom:none}
-.facts dt{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--red);font-weight:700;flex:0 0 110px;margin:0;
-}
-.facts dd{margin:0}
-
 /* closing call-to-action band */
 .cta-band{background:var(--red);color:#fff;padding-block:clamp(40px,6vw,62px);text-align:center}
 .cta-band h2{color:#fff;font-size:clamp(1.7rem,4vw,2.6rem)}
@@ -451,27 +513,72 @@ details.faq .body{padding:0 18px 18px;font-size:.95rem;color:var(--muted)}
 details.faq .body p{margin:0 0 .8rem}
 details.faq .body p:last-child{margin:0}
 
+/* --- data tables used inside issue planks --- */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;
+  margin:1.4rem 0 1.5rem;border:3px solid var(--navy);box-shadow:var(--shadow-hard)}
+/* grid and flex children default to min-width:auto, which lets a wide table
+   push the whole column past the viewport. Let them shrink instead. */
+.split>*,.stand,.stand .prose{min-width:0}
+table.dtable{border-collapse:collapse;width:100%;min-width:420px;background:var(--paper);font-size:.93rem}
+table.dtable caption{
+  caption-side:top;text-align:left;background:var(--navy);color:#fff;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:10px 14px;font-weight:700;
+}
+table.dtable th,table.dtable td{padding:11px 14px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+table.dtable thead th{
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--wash);font-weight:700;
+}
+table.dtable tbody th{font-weight:600;font-family:var(--body)}
+table.dtable tbody tr:last-child th,table.dtable tbody tr:last-child td{border-bottom:none}
+table.dtable td{font-family:var(--mono);font-weight:700;white-space:nowrap}
+table.dtable td.bad{color:var(--red-dark)}
+table.dtable td.good{color:#1F6F3D}
+
+/* an explicit limits-of-the-office note inside a plank */
+.stand .caveat{
+  border-left:8px solid var(--navy);background:var(--wash);
+  padding:16px 20px;margin-top:1.3rem;font-size:.95rem;
+}
+
+
+/* nested sub-entries in the jump list (subsections inside a plank) */
+.jump li.sub a{
+  padding-left:28px;font-size:.7rem;color:var(--muted);text-transform:none;letter-spacing:.02em;
+}
+.jump li.sub a::before{content:"\2014\00a0";color:var(--red)}
+.jump li.sub a:hover{color:#fff}
+
+/* subsection headings inside a plank need more air than a plain .prose h3 */
+.stand .prose h3{
+  margin:2.6rem 0 .9rem;font-size:1.3rem;
+  padding-top:1.1rem;border-top:2px solid var(--rule);
+}
+.stand .prose h3:first-child{margin-top:0;padding-top:0;border-top:none}
+/* brand-accurate social logos */
+.social[data-social="facebook"] svg,.foot-social a[data-social="facebook"] svg{fill:#1877F2}
+.social[data-social="instagram"] svg,.foot-social a[data-social="instagram"] svg{fill:url(#ig-grad)}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><radialGradient id="ig-grad" cx="0.3" cy="1.07" r="1.5"><stop offset="0" stop-color="#FDF497"/><stop offset="0.05" stop-color="#FDF497"/><stop offset="0.45" stop-color="#FD5949"/><stop offset="0.6" stop-color="#D6249F"/><stop offset="0.9" stop-color="#285AEB"/></radialGradient></defs></svg>
 <a class="skip" href="#main">Skip to main content</a>
 
 <!-- NY Election Law requires this disclaimer on every page -->
-<div class="disclaimer-top">Paid for by Booth for Mayor</div>
+<div class="disclaimer-top">Paid for by The Committee to Elect Booth for Mayor</div>
 
 <header class="site">
   <div class="wrap bar">
-    <a class="lockup" href="index.html" aria-label="Booth for Mayor, home">
-      <span class="lockup-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span class="lockup-name">Booth</span>
-      <span class="lockup-office">For Mayor</span>
+    <a class="brand" href="index.html" aria-label="Booth for Mayor, home">
+      <img src="assets/yard-sign-header.png" width="300" height="229" alt="Booth for Mayor">
     </a>
     <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">MENU</button>
     <nav class="main" id="mainNav">
       <a href="issues.html">Where I Stand</a>
-      <a href="about.html">Meet Booth</a>
+      <a href="about.html">About Me</a>
       <a href="involved.html">Get Involved</a>
-      <a class="btn btn--sm btn--header" data-form="yardsign" href="#">Yard Sign</a>
+      <a class="btn btn--sm btn--header" data-form="yardsign" href="#">Get a Yard Sign</a>
     </nav>
   </div>
   <div class="stripes stripes--thin"></div>
@@ -480,36 +587,34 @@ details.faq .body p:last-child{margin:0}
 <main id="main">
 <div class="pagehead">
   <div class="wrap">
-    <p class="eyebrow">Get involved</p>
+    <p class="eyebrow">Help the Campaign</p>
     <h1>Get Involved</h1>
-    <p class="lede">This campaign has no paid staff. Everything that happens between now and November 2027 happens because someone volunteered to do it.</p>
+    <p class="lede">We are fighting an uphill battle, and could use all the help we can get.</p>
   </div>
 </div>
 
-<section>
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="rule-stripes"></div>
-      <p class="eyebrow">Ways to help</p>
-      <h2>Pick whatever fits your week</h2>
-      <p class="lede">Some of these take an hour. Some take five minutes. All of them matter more in a city race than they would anywhere else &mdash; the margins here are small enough that a few dozen conversations can decide it.</p>
-    </div>
-  </div>
-</section>
 
 <section class="ink" style="padding-top:0">
   <div class="wrap">
     <div class="actions">
+      <div class="action soon" id="donateCard">
+        <span class="badge-soon">Coming soon</span>
+        <h3>Donate</h3>
+        <p>Contributions aren't being accepted yet. The committee must be registered with the State Board of Elections before any money moves.</p>
+        <div class="amounts" id="donateAmounts" hidden></div>
+        <a class="btn" id="donateBtn" href="#" aria-disabled="true" role="button">Donate &mdash; not yet open</a>
+      </div>
+
       <div class="action">
-        <h3>Put a sign in your yard</h3>
-        <p>Signs work because neighbors notice what neighbors do. One on your lawn tells the whole street this campaign is real.</p>
+        <h3>Request a yard sign</h3>
+        <p>The cheapest name recognition there is. Signs work because neighbors notice what neighbors do &mdash; one on your lawn tells the whole street this campaign is real.</p>
         <ul class="ticks">
           <li>Free &mdash; we deliver and install it</li>
           <li>About one minute to request</li>
           <li>A volunteer calls before coming by</li>
         </ul>
         <a class="btn" data-form="yardsign" href="#">Request a yard sign</a>
-        <p class="fineprint" style="color:#C6D2E6">Opens a short form in a new tab. Elmira addresses only.</p>
+        <p class="fineprint">Opens a short form in a new tab. Elmira city addresses only.</p>
       </div>
 
       <div class="action">
@@ -521,25 +626,7 @@ details.faq .body p:last-child{margin:0}
           <li>No experience needed &mdash; we train</li>
         </ul>
         <a class="btn" data-form="volunteer" href="#">Sign up to volunteer</a>
-        <p class="fineprint" style="color:#C6D2E6">Opens a short form in a new tab.</p>
-      </div>
-
-      <div class="action">
-        <h3>Follow on Facebook</h3>
-        <p>Where the campaign posts first &mdash; events, endorsements, and what happened at the last Council meeting.</p>
-        <ul class="ticks">
-          <li>Free, and takes one click</li>
-          <li>Sharing is the part that counts</li>
-        </ul>
-        <a class="btn btn--ghost" data-facebook href="#">Follow the campaign</a>
-      </div>
-
-      <div class="action soon" id="donateCard">
-        <span class="badge-soon">Coming soon</span>
-        <h3>Donate</h3>
-        <p>Contributions aren't being accepted yet. The committee must be registered with the State Board of Elections before any money moves.</p>
-        <div class="amounts" id="donateAmounts" hidden></div>
-        <a class="btn" id="donateBtn" href="#" aria-disabled="true" role="button">Donate &mdash; not yet open</a>
+        <p class="fineprint">Opens a short form in a new tab.</p>
       </div>
     </div>
   </div>
@@ -550,25 +637,21 @@ details.faq .body p:last-child{margin:0}
     <div>
       <div class="rule-stripes"></div>
       <p class="eyebrow">What volunteering looks like</p>
-      <h2 style="margin-bottom:1.3rem">Honest expectations</h2>
+      <h2 style="margin-bottom:1.3rem">A few ways to help</h2>
       <div class="prose">
-        <h3>Knocking doors</h3>
-        <p>Two hours on a Saturday, usually in pairs, always in a neighborhood we've mapped in advance. You get a list, a short script, and someone experienced with you the first time out. Most conversations last under a minute and the large majority are pleasant &mdash; people are generally glad someone came by.</p>
+        <h3>Knocking on doors</h3>
+        <p>A few hours on a Saturday, always in a neighborhood we've mapped in advance. You get a list, a short script. Most conversations last under a minute; people are generally glad someone came by.</p>
 
         <h3>Phone calls</h3>
-        <p>From your own couch, on your own schedule. Good option if walking is hard or your evenings are unpredictable.</p>
+        <p>Reach out to registered voters and ask for their support. From your own couch, on your own schedule.
+	</p>
 
         <h3>Delivering yard signs</h3>
-        <p>Requires a car and a free afternoon. You'll get a list of addresses and a stack of signs. This is the job that most directly determines whether the campaign looks real by October.</p>
+        <p>Requires a car. You'll get a list of addresses and a stack of signs. This is the job that most directly determines whether the campaign looks real by October.</p>
 
         <h3>Literature drops</h3>
-        <p>No conversation required &mdash; you're putting material at doors, not knocking. The easiest way to start if talking to strangers isn't your thing.</p>
+        <p>No conversation required &mdash; you're putting material at doors, not knocking.</p>
 
-        <h3>Hosting a meet-and-greet</h3>
-        <p>Eight to fifteen neighbors in your living room, coffee, an hour. The single highest-value thing a supporter can do, because the invitation comes from someone they already trust.</p>
-
-        <h3>Election Day</h3>
-        <p>Poll greeting, rides to the polls, and phone reminders. Long day, and the one that counts.</p>
       </div>
     </div>
 
@@ -582,7 +665,7 @@ details.faq .body p:last-child{margin:0}
       <div class="sidebar-card" style="margin-top:20px">
         <h3>Prefer to just ask?</h3>
         <p>Email the campaign and someone will get back to you.</p>
-        <a class="btn btn--wide btn--sm btn--ghost" href="mailto:info@boothformayor.com">Email the campaign</a>
+        <a class="btn btn--wide btn--sm btn--ghost" href="mailto:booth4mayor@gmail.com">Email the campaign</a>
       </div>
     </aside>
   </div>
@@ -598,7 +681,7 @@ details.faq .body p:last-child{margin:0}
 
     <details class="faq">
       <summary>Do I have to be a Republican to volunteer?</summary>
-      <div class="body"><p>No. Anyone who wants a better-run city is welcome, whatever their registration. City government is about plowing, policing, code enforcement, and the budget &mdash; none of that has a party label on it.</p></div>
+      <div class="body"><p>No. Anyone who wants a better-run city is welcome, whatever their registration.</p></div>
     </details>
 
     <details class="faq">
@@ -631,6 +714,24 @@ details.faq .body p:last-child{margin:0}
       <a class="btn" data-form="yardsign" href="#">Request a yard sign</a>
       <a class="btn" data-form="volunteer" href="#">Volunteer</a>
     </div>
+    <div class="cta-social" id="follow">
+      <h3>Follow the campaign</h3>
+      <div class="social-row">
+        <a class="social" data-social="facebook" href="#">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+          <span class="social-txt"><strong>Facebook</strong><span>Booth for Mayor</span></span>
+        </a>
+        <a class="social" data-social="instagram" href="#">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.36 2.67.94 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12C21.33 1.36 20.66.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
+          <span class="social-txt"><strong>Instagram</strong><span>Photos from the trail</span></span>
+        </a>
+        <a class="social" data-social="tiktok" href="#">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1 0-5.18c.27 0 .53.04.77.12v-3.2a5.76 5.76 0 0 0-.77-.05 5.79 5.79 0 1 0 5.79 5.79V9.01a7.35 7.35 0 0 0 4.29 1.37V7.29a4.28 4.28 0 0 1-3.34-1.47z"/></svg>
+          <span class="social-txt"><strong>TikTok</strong><span>Short clips, plain talk</span></span>
+        </a>
+      </div>
+      <p class="social-note" id="socialNote" hidden>Social links aren't connected yet &mdash; paste each page URL into the SOCIAL block near the bottom of this file and the buttons turn on.</p>
+    </div>
   </div>
 </section>
 </main>
@@ -640,16 +741,27 @@ details.faq .body p:last-child{margin:0}
   <div class="wrap foot-grid">
     <div>
       <h4>Booth for Mayor</h4>
-      <p style="margin:0 0 10px">A budget you can read. A city hall that answers. Neighborhoods worth staying in.</p>
-      <p style="margin:0"><a href="mailto:info@boothformayor.com">info@boothformayor.com</a></p>
+      <p style="margin:0 0 10px">A budget you can read. Reasonable Taxes. Neighborhoods worth living in.</p>
+      <p style="margin:0"><a href="mailto:booth4mayor@gmail.com">booth4mayor@gmail.com</a></p>
+      <div class="foot-social">
+        <a data-social="facebook" href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.5-3.91 3.77-3.91 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.91h-2.33V22c4.78-.79 8.44-4.94 8.44-9.94z"/></svg>
+        </a>
+        <a data-social="instagram" href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.36 2.67.94 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12C21.33 1.36 20.66.94 19.86.63 19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg>
+        </a>
+        <a data-social="tiktok" href="#" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1 0-5.18c.27 0 .53.04.77.12v-3.2a5.76 5.76 0 0 0-.77-.05 5.79 5.79 0 1 0 5.79 5.79V9.01a7.35 7.35 0 0 0 4.29 1.37V7.29a4.28 4.28 0 0 1-3.34-1.47z"/></svg>
+        </a>
+      </div>
     </div>
     <div>
       <h4>The campaign</h4>
       <ul>
         <li><a href="issues.html">Where I stand</a></li>
-        <li><a href="about.html">Meet Booth</a></li>
+        <li><a href="about.html">About me</a></li>
         <li><a href="involved.html">Get involved</a></li>
-        <li><a href="#" data-facebook>Facebook</a></li>
+        <li><a href="#follow">Follow the campaign</a></li>
       </ul>
     </div>
     <div>
@@ -663,8 +775,7 @@ details.faq .body p:last-child{margin:0}
   </div>
   <div class="wrap">
     <div class="disclaimer-foot">
-      Paid for by Booth for Mayor
-      <span class="note">New York Election Law requires a &ldquo;Paid for by&rdquo; disclaimer on the public-facing website of a political committee. Replace this with your registered committee name exactly as filed with the State Board of Elections, and keep it on every page.</span>
+      Paid for by The Committee to Elect Booth for Mayor
     </div>
   </div>
 </footer>
@@ -680,12 +791,24 @@ const CONFIG = {
      Paste the "Send > link" URL for each form (the full /viewform URL).
      Any left blank shows a "not connected yet" note instead of a dead link. */
   FORMS: {
-    volunteer: "",
-    yardsign:  ""
+    volunteer: "https://docs.google.com/forms/d/e/1FAIpQLSeR4g35MRkE72k3NviwokpkbFKklLNwbIqPmp2xAncJj94N1A/viewform?usp=header",
+    yardsign:  "https://docs.google.com/forms/d/e/1FAIpQLSfVsQihIywdae_JiZPY0dXT0poFWD4IkBr7rgQukRonp71GAg/viewform?usp=header"
   },
 
-  /* Official campaign Facebook Page, e.g. "https://www.facebook.com/BoothForMayor".
-     Leave blank and every Facebook button and link hides itself. */
+  /* --- SOCIAL ---
+     Paste the full public URL of each campaign account. Any left blank is
+     removed from the page automatically, so there are never dead buttons.
+       facebook:  "https://www.facebook.com/BoothForMayor"
+       instagram: "https://www.instagram.com/boothformayor"
+       tiktok:    "https://www.tiktok.com/@boothformayor"       */
+  SOCIAL: {
+    facebook:  "https://www.facebook.com/profile.php?id=61595617333955",
+    instagram: "https://www.instagram.com/booth4mayor/",
+    tiktok:    ""
+  },
+
+  /* Kept for older pages that still read CONFIG.FACEBOOK_URL. If SOCIAL.facebook
+     is blank, this is used instead. */
   FACEBOOK_URL: "",
 
   /* --- DONATIONS (Anedot) ---
@@ -750,17 +873,38 @@ const CONFIG = {
   });
 })();
 
-/* ---------- Facebook links ---------- */
-(function facebook(){
-  const els = document.querySelectorAll('[data-facebook]');
-  if (CONFIG.FACEBOOK_URL){
-    els.forEach(el => {
-      el.href = CONFIG.FACEBOOK_URL;
-      el.target = '_blank';
-      el.rel = 'noopener';
-    });
-  } else {
-    els.forEach(el => el.closest('.action, li')?.remove());
+/* ---------- social links ----------
+   Wires every [data-social="platform"] element to CONFIG.SOCIAL[platform].
+   Unconfigured platforms are removed rather than left as dead links; if none
+   are configured, the follow band shows a short setup note instead of buttons.
+   [data-facebook] is still honored so older pages keep working. */
+(function social(){
+  const urls = Object.assign({}, CONFIG.SOCIAL || {});
+  if (!urls.facebook && CONFIG.FACEBOOK_URL) urls.facebook = CONFIG.FACEBOOK_URL;
+
+  const wire = (el, url) => {
+    el.href = url;
+    el.target = '_blank';
+    el.rel = 'noopener';
+  };
+
+  let live = 0;
+  document.querySelectorAll('[data-social]').forEach(el => {
+    const url = urls[el.dataset.social];
+    if (url){ wire(el, url); live++; }
+    else { (el.closest('.action, li') || el).remove(); }
+  });
+
+  document.querySelectorAll('[data-facebook]').forEach(el => {
+    if (urls.facebook){ wire(el, urls.facebook); live++; }
+    else { (el.closest('.action, li') || el).remove(); }
+  });
+
+  if (!live){
+    document.querySelectorAll('.social-row').forEach(r => r.remove());
+    document.querySelector('.foot-social')?.remove();
+    const note = document.getElementById('socialNote');
+    if (note) note.hidden = false;
   }
 })();
 
